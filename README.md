@@ -1,53 +1,55 @@
-### Practicing JS:
-  - JS Loop For,
-  - JS Switch, 
-  - JS Number Methods parseInt().
+## :fist:Practicing JS::fist:
+  - [JS Loop For](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for).
+  - [JS Switch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch). 
+  - [JS Number Methods parseInt()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/parseInt).
   
- ### React.JS: 
+ ## :v:React.JS: :v:
   - super(props), 
   - this.state/this.setState, 
   - React Element (JSX).
 
-### JS Loop Function example: 
+## :thumbsup:JS Loop Function example::thumbsup:
+```
 //This function will make all the DOB number plus together. <br />
 //For ex: 12-01-1990 => 1+2+0+1+1+9+9+0= 23 => 2+3=5 <br />
-function countDOB(bday) { <br />
-  let sumDOB = 0; <br />
-  for (var i = 0; i < bday.length; i++) { <br />
-    const character1 = bday[i]; <br />
-    if (character1 != '-') { <br />
-      sumDOB += parseInt(character1); //get numeric value from the character '1', '2', etc. <br />
-    } <br />
-  } <br />
-  return sumDOB; <br />
-} <br />
+function countDOB(bday) {
+  let sumDOB = 0; 
+  for (var i = 0; i < bday.length; i++) { 
+    const character1 = bday[i]; 
+    if (character1 != '-') { 
+      sumDOB += parseInt(character1); //get numeric value from the character '1', '2', etc. 
+    }
+  } 
+  return sumDOB; 
+} 
+```
 
-### React.JS example:
-
+## :thumbsup:React.JS example::thumbsup:
+```
 constructor(props) {
-<br />
-    super(props);
-    <br />
-    this.state = {<br />
-      bday: '',<br />
-      bdayCount: 0,<br />
-      showBdayResult: '',<br />
-    } <br />
-  } <br />
+    super(props);    
+    this.state = {
+      bday: '',
+      bdayCount: 0,
+      showBdayResult: '',
+    } 
+  } 
 
-  render() {<br />
-    return (<br />
-      <div><br />
-        <label for="bday"> Your Date of Birth (DOB): </label><br />
+  render() {
+    return (
+      <div>
+        <label for="bday"> Your Date of Birth (DOB): </label>
         <input type="date" id="bday" onChange={(e) => { this.setState({ bday: e.target.value }) }} />
-        <button onClick={() => { <br />
-          const bdayCount = countDOB(this.state.bday); <br />
-          this.setState({ bdayCount: bdayCount }) <br />
-          this.setState({ showBdayResult: showBday(bdayCount) }) <br />
-        }}>Submit</button> <br />
-        <p>Your DOB number: {this.state.bdayCount}</p> <br />
-        <p>Your result is: {this.state.showBdayResult}</p> <br />
-      </div> <br />
-    ); <br />
-  } <br />
-} <br />
+        <button onClick={() => { 
+          const bdayCount = countDOB(this.state.bday); 
+          this.setState({ bdayCount: bdayCount }) 
+          this.setState({ showBdayResult: showBday(bdayCount) }) 
+        }}>Submit</button>
+        <p>Your DOB number: {this.state.bdayCount}</p> 
+        <p>Your result is: {this.state.showBdayResult}</p>
+      </div>
+    ); 
+  } 
+} 
+```
+Get available emoji and codes through [this link](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
