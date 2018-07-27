@@ -7,6 +7,11 @@
   - super(props), 
   - this.state/this.setState, 
   - React Element (JSX).
+  
+## What I achieved in this program: :bamboo:
+  - [x] Looping for answers successfully. 
+  - [ ] Input requests -> API -> get infos/answers from Database -> send the results back to frontend/browser.
+  - [ ] Build this program into an mobile app:iphone:.
 
 ## :thumbsup:JS Loop Function example::thumbsup:
 ```
