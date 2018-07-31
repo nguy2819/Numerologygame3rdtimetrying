@@ -58,7 +58,7 @@ constructor(props) {
 } 
 ```
 
-## Make multiple COMMENTS
+## :speech_balloon:Make multiple COMMENTS:speech_balloon:
 Using the ideas of buckets of fruit, let's say the the old state was the bucket of apples, which represent comments. The problem is the bucket was made to only hold so many apples. In order to add more apples we need a new bucket. This line [...oldState.comments, oldState.pendingComment] is making a new bucket that holds the old apple bucket plus one more apple.
 
 ```
