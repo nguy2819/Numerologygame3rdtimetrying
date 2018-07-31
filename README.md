@@ -57,4 +57,28 @@ constructor(props) {
   } 
 } 
 ```
+
+## Make multiple COMMENTS
+Using the ideas of buckets of fruit, let's say the the old state was the bucket of apples, which represent comments. The problem is the bucket was made to only hold so many apples. In order to add more apples we need a new bucket. This line [...oldState.comments, oldState.pendingComment] is making a new bucket that holds the old apple bucket plus one more apple.
+
+```
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+     comments:[],
+     pendingComment: ''
+    }
+    this.addComment = this.addComment.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+addComment(e){
+    this.setState ((oldState) => {
+      return {comments: [...oldState.comments, oldState.pendingComment]}
+    });
+  }
+```
+
 Get available emoji and codes through [this link](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
