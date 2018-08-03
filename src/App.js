@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import firebase from './firebase/firebase';
+import Primary from './components/Primary'
 
 function count(fname) {
   let sum = 0;
@@ -156,7 +158,7 @@ function countDOB(bday) {
   let sumDOB = 0;
   for (var i = 0; i < bday.length; i++) {
     const character1 = bday[i];
-    if (character1 != '-') {
+    if (character1 !== '-') {
       sumDOB += parseInt(character1); //get numeric value from the character '1', '2', etc.
     }
   }
@@ -177,6 +179,18 @@ function showBday(sumDOB) {
   return resultBday;
 }
 
+// //Thank you Box function appears after submit Comments
+// function thankYouBox(){
+//   var txt;
+//   var confirm;
+//   if(confirm("Thank You for giving us your comments!")) {
+//     txt = "We appreaciate your time and we love to hear your comments to us!";
+//   } else {
+//     txt = "We hope you like our game!";
+//   }
+//   document.getElementById("thankYouBox").innerHTML = txt;
+// }
+
 class App extends Component {
 
   constructor(props) {
@@ -188,26 +202,51 @@ class App extends Component {
       bday: '',
       bdayCount: 0,
       showBdayResult: '',
+      comments:[],
+      pendingComment: ''
     }
+    this.addComment = this.addComment.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  addComment(e){
+    this.setState ((oldState) => {
+      return {pendingComment: '', comments: [...oldState.comments, oldState.pendingComment]}
+    });
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    //const commentsRef = firebase.database().ref('user/' + userId + '/comments');
+    const commentsRef = firebase.database().ref('comments');
+    const comment = {
+      comment: this.state.comments
+    }
+    commentsRef.set(comment);
+    this.setState({
+      comments: ''
+    });
   }
 
   render() {
     return (
       <div>
+        <Primary />
         <h1>NUMEROLOGY GAME</h1>
         <h3>Based on Numerology, Orion Plain and Simple by Anne Christie.</h3>
         <h4><u>Your name number and your compound name number</u></h4>
         <p>According to the numerological theory, you always use the full name on your birth certificate when working out your name number. The number is also changed when women change their name to their husband's family name after they married. Moreover, other changes are a matter of choice, or simply a matter of shortening a name, and some wants to be called by middle name rather than their first name. For example, Mike rather Michael, or Riley Smith rather than Phillip Riley Smith, etc. So begin by using the name on your birth certificate, and then use the name you go by on a day-to-day basic.</p>
-        <label for="fname">Full Name/ First Name: </label>
-        <input type="text" id="fname" placeholder="Type Your Full Name/ First Name"
-          onChange={(e) => { this.setState({ name: e.target.value }) }} />
-        <button onClick={() => {
-          const nameCount = count(this.state.name);
-          this.setState({ nameCount: nameCount })
-          this.setState({ showResult: show(nameCount) })
-        }}>Submit</button>
-        <p>Your name number is: {this.state.nameCount}</p>
-        <p>Your result is: {this.state.showResult}</p>
+          <label for="fname">Full Name/ First Name: </label>
+          <input type="text" id="fname" placeholder="Type Your Full Name/ First Name"
+            onChange={(e) => { this.setState({ name: e.target.value }) }}/>
+          <button onClick={() => {
+            const nameCount = count(this.state.name);
+            this.setState({ nameCount: nameCount })
+            this.setState({ showResult: show(nameCount) })
+          }}>Submit</button>
+          <p>Your name number is: {this.state.nameCount}</p>
+          <p>Your result is: {this.state.showResult}</p>
+
 
         <h4><u>Your life path number</u></h4>
         <label for="bday"> Your Date of Birth (DOB): </label>
@@ -219,7 +258,21 @@ class App extends Component {
         }}>Submit</button>
         <p>Your DOB number: {this.state.bdayCount}</p>
         <p>Your result is: {this.state.showBdayResult}</p>
-      </div>
+
+
+       {/* Collect Comments through Firebase */}
+       <form onSubmit={this.handleSubmit}>
+       <label for="comments">We would love to hear what do you think about our numerology game: </label>
+       <input type="textarea" id="comments" placeholder="Please leave us your comments about this numerology game"
+       onChange={(e) => this.setState({pendingComment: e.target.value})} value={this.state.pendingComment}/>
+       <button onClick={(e) => {
+       this.addComment();
+      //  this.thankYouBox()
+      }}>Submit</button>
+      </form>
+      {/* {this.state.comments.map(c => <p>{c}</p>)} */}
+      {/* <p id="thankYouBox"></p> */}
+    </div>
     );
   }
 }
